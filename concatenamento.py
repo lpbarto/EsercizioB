@@ -22,7 +22,12 @@ class LinkedList:
     def add(self, item):
         temp = Node(item)
         temp.set_next(self.head)
+        testa = self.head
         self.head = temp
+        if testa is None:
+            return 0
+        else:
+            return 1
     def size(self):
         current = self.head
         count = 0
@@ -34,17 +39,18 @@ class LinkedList:
     def search(self, item):
         current = self.head
         found = False
-        while current != None and not found:
+        while current is not None and not found:
             if current.get_data() == item:
                 found = True
             else:
                 current = current.get_next()
         return found
+
     def PrintL(self):
         current = self.head
         previous = None
         while current != None:
-            print('..' , current.get_data())
+            print('..',  current.get_data(), end= '')
             current = current.get_next()
 
     def remove(self, item):
@@ -52,13 +58,54 @@ class LinkedList:
         previous = None
         found = False
         while not found:
-            if current.get_data() == item:
-                found = True
+            if current is not None:
+                if current.get_data() == item:
+                    found = True
+                else:
+                    previous = current
+                    current = current.get_next()
             else:
-                previous = current
-                current = current.get_next()
+                return found
         if previous == None:
             self.head = current.get_next()
         else:
             previous.set_next(current.get_next())
+        return found
+
+class Table:
+    def __init__(self, m):
+        self.collisioni = 0
+        self.size = m
+        lista = LinkedList()
+        table = [lista]
+        for x in range(1, m, 1):
+            lista = LinkedList()
+            table.append(lista)
+        self.table = table
+
+    def insert(self, k):
+        h = hash(k, self.size)
+        self.collisioni += self.table[h].add(k)
+        #print("chiave %i, posizione %i" %(k, h))
+
+    def visit(self):
+        for x in range(0, self.size, 1):
+            self.table[x].PrintL()
+            print(" ")
+
+    def delete(self, k):
+        h = hash(k, self.size)
+        if self.table[h].remove(k):
+            print("rimossa chiave %i" % k)
+        else:
+            print("chiave %i non trovata" % k)
+
+    def search(self, k):
+        h = hash(k, self.size)
+        if self.table[h].search(k):
+            print("chiave %i trovata" % k)
+        else:
+            print("chiave %i non trovata" % k)
+
+
 
