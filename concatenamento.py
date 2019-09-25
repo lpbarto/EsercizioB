@@ -95,17 +95,22 @@ class Table:
 
     def delete(self, k):
         h = hash(k, self.size)
+        self.table[h].remove(k)
+        '''
         if self.table[h].remove(k):
             print("rimossa chiave %i" % k)
         else:
             print("chiave %i non trovata" % k)
+        '''
 
     def search(self, k):
         h = hash(k, self.size)
+        self.table[h].search(k)
+        '''
         if self.table[h].search(k):
             print("chiave %i trovata" % k)
         else:
             print("chiave %i non trovata" % k)
-
+        '''
 
 

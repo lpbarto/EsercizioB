@@ -32,25 +32,27 @@ class OpenTable:
             j = hash(k, i, self.size)
             if self.openTable[j] == k:
                 self.openTable[j] = DELETED
-                print("chiave %i posizione %i eliminata" %(k, j))
+                #print("chiave %i posizione %i eliminata" %(k, j))
                 return
+            elif self.openTable[j] is None:
+                return None
             else:
                 i += 1
-        print("key not found")
+        #print("key not found")
 
     def openSearch(self, k):
         i = 0
         while i < self.size:
             j = hash(k, i, self.size)
             if self.openTable[j] == k:
-                print("trovata chiave %i posizione %i" %(k, j))
+                #print("trovata chiave %i posizione %i" %(k, j))
                 return
             elif self.openTable[j] is None:
-                print("Non trovata chiave %i " % k)
+                #print("Non trovata chiave %i " % k)
                 return None
             else:
                 i += 1
-        print("Non trovata chiave %i " % k)
+        #print("Non trovata chiave %i " % k)
         return None
 
     def openVisit(self):
